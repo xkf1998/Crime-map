@@ -1,0 +1,19 @@
+<div class="header">
+  <div class="title">
+    <h1>{{ title }}</h1>
+  </div>
+  <div class="city-selector">
+    <p>please select your city here:</p>
+    <select [(ngModel)]="selectedCity" (change)="onCityChange()">
+      <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+    </select>
+  </div>
+</div>
+
+
+
+<!-- this creates a google map on the page with the given lat/lng from -->
+<!-- the component as the initial center of the map: -->
+<agm-map #map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (boundsChange)="onBoundsChange($event)"
+  (mapReady)="onMapReady($event)">
+</agm-map>
