@@ -20,12 +20,13 @@ agm-map {
     height: 10%;
     background-image: url('/assets/background.png');
     /* Change the last value (0.5) to adjust the opacity */
-    opacity: 0.3;
+    opacity: 0.5;
 }
 
 .title h1 {
     margin: 0%;
     font-size: 65px;
+    z-index: 1;
 }
 
 .city-selector{
