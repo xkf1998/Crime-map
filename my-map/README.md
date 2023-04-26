@@ -28,4 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Tips
 
-When we are running under Mac or Linux environment, we need to add an environment variable `export NODE_OPTIONS=--openssl-legacy-provider`.
+When  running under Mac or Linux environment, we need to add an environment variable `export NODE_OPTIONS=--openssl-legacy-provider`.
