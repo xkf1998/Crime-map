@@ -1,9 +1,3 @@
-# Crime Heat Map App
-
-The Crime Heat Map App is a web application that displays a map of crime data for a given area. The app allows users to visualize crime trends and patterns in their neighborhood and make informed decisions about safety.
-
-## Getting Started
-
 # MyMap
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.0.
