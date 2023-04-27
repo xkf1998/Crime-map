@@ -37,7 +37,7 @@ export class AppComponent {
   grid: any[][] = Array.from({ length: this.gridRows }, () => Array(this.gridCols).fill(0));
 
   cities = ['New York', 'Chicago', 'Austin', 'Los Angeles', 'San Francisco', 'Seattle'];
-  selectedCity: string = 'New York';
+  selectedCity: string = '';
 
 
 
@@ -131,7 +131,7 @@ export class AppComponent {
 
   onMapReady(map: google.maps.Map) {
     this.map = map;
-    this.sendGrpcRequest();
+    // this.sendGrpcRequest();
   }
 
   getRectangleBounds(row: number, col: number): google.maps.LatLngBoundsLiteral {

@@ -1,6 +1,11 @@
 agm-map {
-    height: 90%;
+    height: 90vh;
+    width: 100%;
   }
+
+.header {
+  height: 10vh;
+}
 
 .title {
     background-size: cover;
@@ -8,24 +13,24 @@ agm-map {
     justify-content: center;
     display: flex;
     align-items: center;
-    height: 10%;
 }
 
-.header:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 10%;
-    background-image: url('/assets/background.png');
-    /* Change the last value (0.5) to adjust the opacity */
-    opacity: 0.5;
+.title:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/background.png');
+  /* Change the last value (0.5) to adjust the opacity */
+  opacity: 0.5;
 }
+
 
 .title h1 {
     margin: 0%;
-    font-size: 65px;
+    font-size: 4rem;
     z-index: 1;
 }
 
