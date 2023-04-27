@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
+import { GrpcService } from './grpc.service';
 
 
 @Component({
@@ -38,11 +39,25 @@ export class AppComponent {
   cities = ['New York', 'Chicago', 'Austin', 'Los Angeles', 'San Francisco', 'Seattle'];
   selectedCity: string = 'New York';
 
-  constructor(private mapsAPILoader: MapsAPILoader) {
+
+
+  constructor(private mapsAPILoader: MapsAPILoader, private grpcService: GrpcService) {
     this.rectangles = new Array(this.gridRows);
     for (let i = 0; i < this.gridRows; i++) {
       this.rectangles[i] = new Array(this.gridCols).fill(null);
     }
+
+  }
+  responseMessage: string;
+  sendGrpcRequest(): void {
+    this.grpcService.sayHello('John Doe')
+      .then(response => {
+        this.responseMessage = response.getMessage();
+        console.log(this.responseMessage)
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }
 
   mapCrimeToGridCell(crimeLat: number, crimeLng: number): { row: number; col: number } {
@@ -116,6 +131,7 @@ export class AppComponent {
 
   onMapReady(map: google.maps.Map) {
     this.map = map;
+    this.sendGrpcRequest();
   }
 
   getRectangleBounds(row: number, col: number): google.maps.LatLngBoundsLiteral {
