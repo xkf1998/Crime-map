@@ -1,31 +1,32 @@
-# Crime Heat Map App
+# MyMap
 
-The Crime Heat Map App is a web application that displays a map of crime data for a given area. The app allows users to visualize crime trends and patterns in their neighborhood and make informed decisions about safety.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.0.
 
-## Getting Started
+## Development server
 
-To run the Crime Heat Map App, follow these steps:
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-1. Clone the repository to your local machine.
-2. Install the necessary dependencies by running `npm install`.
-3. Start the application by running `ng serve`.
+## Code scaffolding
 
-Once the app is running, you can access it by opening a web browser and navigating to `http://localhost:4200`.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Usage
+## Build
 
-The Crime Heat Map App is designed to be easy to use. Simply select your city, and the app will display a map with markers representing crimes that have occurred in the surrounding area. You can filter the data by date range, crime type, and other parameters to get a more granular view of crime trends.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Contributing
+## Running unit tests
 
-If you'd like to contribute to the Crime Heat Map App, please follow these steps:
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-1. Fork the repository to your own GitHub account.
-2. Create a new branch with a descriptive name (`feature/my-new-feature`).
-3. Make your changes and commit them with a clear message.
-4. Push your branch to your forked repository.
-5. Submit a pull request to the original repository.
+## Running end-to-end tests
 
-## License
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-The Crime Heat Map App is licensed under the MIT License. See `LICENSE` for more information.
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Tips
+
+When  running under Mac or Linux environment, we need to add an environment variable `export NODE_OPTIONS=--openssl-legacy-provider`.
+
