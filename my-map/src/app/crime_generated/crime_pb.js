@@ -13,7 +13,7 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global = (function() {
+var global = (function () {
   if (this) { return this; }
   if (typeof window !== 'undefined') { return window; }
   if (typeof global !== 'undefined') { return global; }
@@ -34,7 +34,7 @@ goog.exportSymbol('proto.crimemap.service.GetCrimesResponse', null, global);
  * @extends {jspb.Message}
  * @constructor
  */
-proto.crimemap.service.GetCrimesRequest = function(opt_data) {
+proto.crimemap.service.GetCrimesRequest = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.crimemap.service.GetCrimesRequest, jspb.Message);
@@ -55,7 +55,7 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.crimemap.service.Crime = function(opt_data) {
+proto.crimemap.service.Crime = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.crimemap.service.Crime, jspb.Message);
@@ -76,7 +76,7 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.crimemap.service.GetCrimesResponse = function(opt_data) {
+proto.crimemap.service.GetCrimesResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, proto.crimemap.service.GetCrimesResponse.repeatedFields_, null);
 };
 goog.inherits(proto.crimemap.service.GetCrimesResponse, jspb.Message);
@@ -91,47 +91,47 @@ if (goog.DEBUG && !COMPILED) {
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.crimemap.service.GetCrimesRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.crimemap.service.GetCrimesRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.crimemap.service.GetCrimesRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.crimemap.service.GetCrimesRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    timeMin: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    timeMax: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    longitudeMin: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
-    longitudeMax: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
-    latitudeMin: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
-    latitudeMax: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0)
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.crimemap.service.GetCrimesRequest.prototype.toObject = function (opt_includeInstance) {
+    return proto.crimemap.service.GetCrimesRequest.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
+
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.crimemap.service.GetCrimesRequest} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.crimemap.service.GetCrimesRequest.toObject = function (includeInstance, msg) {
+    var f, obj = {
+      timeMin: jspb.Message.getFieldWithDefault(msg, 1, 0),
+      timeMax: jspb.Message.getFieldWithDefault(msg, 2, 0),
+      longitudeMin: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+      longitudeMax: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
+      latitudeMin: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+      latitudeMax: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0)
+    };
+
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
 }
 
 
@@ -140,7 +140,7 @@ proto.crimemap.service.GetCrimesRequest.toObject = function(includeInstance, msg
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.crimemap.service.GetCrimesRequest}
  */
-proto.crimemap.service.GetCrimesRequest.deserializeBinary = function(bytes) {
+proto.crimemap.service.GetCrimesRequest.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
   var msg = new proto.crimemap.service.GetCrimesRequest;
   return proto.crimemap.service.GetCrimesRequest.deserializeBinaryFromReader(msg, reader);
@@ -154,40 +154,40 @@ proto.crimemap.service.GetCrimesRequest.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.crimemap.service.GetCrimesRequest}
  */
-proto.crimemap.service.GetCrimesRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.crimemap.service.GetCrimesRequest.deserializeBinaryFromReader = function (msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setTimeMin(value);
-      break;
-    case 2:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setTimeMax(value);
-      break;
-    case 3:
-      var value = /** @type {number} */ (reader.readDouble());
-      msg.setLongitudeMin(value);
-      break;
-    case 4:
-      var value = /** @type {number} */ (reader.readDouble());
-      msg.setLongitudeMax(value);
-      break;
-    case 5:
-      var value = /** @type {number} */ (reader.readDouble());
-      msg.setLatitudeMin(value);
-      break;
-    case 6:
-      var value = /** @type {number} */ (reader.readDouble());
-      msg.setLatitudeMax(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = /** @type {number} */ (reader.readInt64());
+        msg.setTimeMin(value);
+        break;
+      case 2:
+        var value = /** @type {number} */ (reader.readInt64());
+        msg.setTimeMax(value);
+        break;
+      case 3:
+        var value = /** @type {number} */ (reader.readDouble());
+        msg.setLongitudeMin(value);
+        break;
+      case 4:
+        var value = /** @type {number} */ (reader.readDouble());
+        msg.setLongitudeMax(value);
+        break;
+      case 5:
+        var value = /** @type {number} */ (reader.readDouble());
+        msg.setLatitudeMin(value);
+        break;
+      case 6:
+        var value = /** @type {number} */ (reader.readDouble());
+        msg.setLatitudeMax(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
@@ -198,7 +198,7 @@ proto.crimemap.service.GetCrimesRequest.deserializeBinaryFromReader = function(m
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.crimemap.service.GetCrimesRequest.prototype.serializeBinary = function() {
+proto.crimemap.service.GetCrimesRequest.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.crimemap.service.GetCrimesRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
@@ -212,7 +212,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.crimemap.service.GetCrimesRequest.serializeBinaryToWriter = function(message, writer) {
+proto.crimemap.service.GetCrimesRequest.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getTimeMin();
   if (f !== 0) {
@@ -263,7 +263,7 @@ proto.crimemap.service.GetCrimesRequest.serializeBinaryToWriter = function(messa
  * optional int64 time_min = 1;
  * @return {number}
  */
-proto.crimemap.service.GetCrimesRequest.prototype.getTimeMin = function() {
+proto.crimemap.service.GetCrimesRequest.prototype.getTimeMin = function () {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
@@ -272,7 +272,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.getTimeMin = function() {
  * @param {number} value
  * @return {!proto.crimemap.service.GetCrimesRequest} returns this
  */
-proto.crimemap.service.GetCrimesRequest.prototype.setTimeMin = function(value) {
+proto.crimemap.service.GetCrimesRequest.prototype.setTimeMin = function (value) {
   return jspb.Message.setProto3IntField(this, 1, value);
 };
 
@@ -281,7 +281,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.setTimeMin = function(value) {
  * optional int64 time_max = 2;
  * @return {number}
  */
-proto.crimemap.service.GetCrimesRequest.prototype.getTimeMax = function() {
+proto.crimemap.service.GetCrimesRequest.prototype.getTimeMax = function () {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
@@ -290,7 +290,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.getTimeMax = function() {
  * @param {number} value
  * @return {!proto.crimemap.service.GetCrimesRequest} returns this
  */
-proto.crimemap.service.GetCrimesRequest.prototype.setTimeMax = function(value) {
+proto.crimemap.service.GetCrimesRequest.prototype.setTimeMax = function (value) {
   return jspb.Message.setProto3IntField(this, 2, value);
 };
 
@@ -299,7 +299,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.setTimeMax = function(value) {
  * optional double longitude_min = 3;
  * @return {number}
  */
-proto.crimemap.service.GetCrimesRequest.prototype.getLongitudeMin = function() {
+proto.crimemap.service.GetCrimesRequest.prototype.getLongitudeMin = function () {
   return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 3, 0.0));
 };
 
@@ -308,7 +308,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.getLongitudeMin = function() {
  * @param {number} value
  * @return {!proto.crimemap.service.GetCrimesRequest} returns this
  */
-proto.crimemap.service.GetCrimesRequest.prototype.setLongitudeMin = function(value) {
+proto.crimemap.service.GetCrimesRequest.prototype.setLongitudeMin = function (value) {
   return jspb.Message.setProto3FloatField(this, 3, value);
 };
 
@@ -317,7 +317,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.setLongitudeMin = function(val
  * optional double longitude_max = 4;
  * @return {number}
  */
-proto.crimemap.service.GetCrimesRequest.prototype.getLongitudeMax = function() {
+proto.crimemap.service.GetCrimesRequest.prototype.getLongitudeMax = function () {
   return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
 };
 
@@ -326,7 +326,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.getLongitudeMax = function() {
  * @param {number} value
  * @return {!proto.crimemap.service.GetCrimesRequest} returns this
  */
-proto.crimemap.service.GetCrimesRequest.prototype.setLongitudeMax = function(value) {
+proto.crimemap.service.GetCrimesRequest.prototype.setLongitudeMax = function (value) {
   return jspb.Message.setProto3FloatField(this, 4, value);
 };
 
@@ -335,7 +335,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.setLongitudeMax = function(val
  * optional double latitude_min = 5;
  * @return {number}
  */
-proto.crimemap.service.GetCrimesRequest.prototype.getLatitudeMin = function() {
+proto.crimemap.service.GetCrimesRequest.prototype.getLatitudeMin = function () {
   return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
 };
 
@@ -344,7 +344,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.getLatitudeMin = function() {
  * @param {number} value
  * @return {!proto.crimemap.service.GetCrimesRequest} returns this
  */
-proto.crimemap.service.GetCrimesRequest.prototype.setLatitudeMin = function(value) {
+proto.crimemap.service.GetCrimesRequest.prototype.setLatitudeMin = function (value) {
   return jspb.Message.setProto3FloatField(this, 5, value);
 };
 
@@ -353,7 +353,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.setLatitudeMin = function(valu
  * optional double latitude_max = 6;
  * @return {number}
  */
-proto.crimemap.service.GetCrimesRequest.prototype.getLatitudeMax = function() {
+proto.crimemap.service.GetCrimesRequest.prototype.getLatitudeMax = function () {
   return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 6, 0.0));
 };
 
@@ -362,7 +362,7 @@ proto.crimemap.service.GetCrimesRequest.prototype.getLatitudeMax = function() {
  * @param {number} value
  * @return {!proto.crimemap.service.GetCrimesRequest} returns this
  */
-proto.crimemap.service.GetCrimesRequest.prototype.setLatitudeMax = function(value) {
+proto.crimemap.service.GetCrimesRequest.prototype.setLatitudeMax = function (value) {
   return jspb.Message.setProto3FloatField(this, 6, value);
 };
 
@@ -371,45 +371,45 @@ proto.crimemap.service.GetCrimesRequest.prototype.setLatitudeMax = function(valu
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.crimemap.service.Crime.prototype.toObject = function(opt_includeInstance) {
-  return proto.crimemap.service.Crime.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.crimemap.service.Crime} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.crimemap.service.Crime.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    time: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    longitude: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-    latitude: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
-    description: jspb.Message.getFieldWithDefault(msg, 4, "")
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.crimemap.service.Crime.prototype.toObject = function (opt_includeInstance) {
+    return proto.crimemap.service.Crime.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
+
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.crimemap.service.Crime} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.crimemap.service.Crime.toObject = function (includeInstance, msg) {
+    var f, obj = {
+      time: jspb.Message.getFieldWithDefault(msg, 1, 0),
+      longitude: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+      latitude: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+      description: jspb.Message.getFieldWithDefault(msg, 4, "")
+    };
+
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
 }
 
 
@@ -418,7 +418,7 @@ proto.crimemap.service.Crime.toObject = function(includeInstance, msg) {
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.crimemap.service.Crime}
  */
-proto.crimemap.service.Crime.deserializeBinary = function(bytes) {
+proto.crimemap.service.Crime.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
   var msg = new proto.crimemap.service.Crime;
   return proto.crimemap.service.Crime.deserializeBinaryFromReader(msg, reader);
@@ -432,32 +432,32 @@ proto.crimemap.service.Crime.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.crimemap.service.Crime}
  */
-proto.crimemap.service.Crime.deserializeBinaryFromReader = function(msg, reader) {
+proto.crimemap.service.Crime.deserializeBinaryFromReader = function (msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setTime(value);
-      break;
-    case 2:
-      var value = /** @type {number} */ (reader.readDouble());
-      msg.setLongitude(value);
-      break;
-    case 3:
-      var value = /** @type {number} */ (reader.readDouble());
-      msg.setLatitude(value);
-      break;
-    case 4:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDescription(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = /** @type {number} */ (reader.readInt64());
+        msg.setTime(value);
+        break;
+      case 2:
+        var value = /** @type {number} */ (reader.readDouble());
+        msg.setLongitude(value);
+        break;
+      case 3:
+        var value = /** @type {number} */ (reader.readDouble());
+        msg.setLatitude(value);
+        break;
+      case 4:
+        var value = /** @type {string} */ (reader.readString());
+        msg.setDescription(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
@@ -468,7 +468,7 @@ proto.crimemap.service.Crime.deserializeBinaryFromReader = function(msg, reader)
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.crimemap.service.Crime.prototype.serializeBinary = function() {
+proto.crimemap.service.Crime.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.crimemap.service.Crime.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
@@ -482,7 +482,7 @@ proto.crimemap.service.Crime.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.crimemap.service.Crime.serializeBinaryToWriter = function(message, writer) {
+proto.crimemap.service.Crime.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getTime();
   if (f !== 0) {
@@ -519,7 +519,7 @@ proto.crimemap.service.Crime.serializeBinaryToWriter = function(message, writer)
  * optional int64 time = 1;
  * @return {number}
  */
-proto.crimemap.service.Crime.prototype.getTime = function() {
+proto.crimemap.service.Crime.prototype.getTime = function () {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
@@ -528,7 +528,7 @@ proto.crimemap.service.Crime.prototype.getTime = function() {
  * @param {number} value
  * @return {!proto.crimemap.service.Crime} returns this
  */
-proto.crimemap.service.Crime.prototype.setTime = function(value) {
+proto.crimemap.service.Crime.prototype.setTime = function (value) {
   return jspb.Message.setProto3IntField(this, 1, value);
 };
 
@@ -537,7 +537,7 @@ proto.crimemap.service.Crime.prototype.setTime = function(value) {
  * optional double longitude = 2;
  * @return {number}
  */
-proto.crimemap.service.Crime.prototype.getLongitude = function() {
+proto.crimemap.service.Crime.prototype.getLongitude = function () {
   return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 2, 0.0));
 };
 
@@ -546,7 +546,7 @@ proto.crimemap.service.Crime.prototype.getLongitude = function() {
  * @param {number} value
  * @return {!proto.crimemap.service.Crime} returns this
  */
-proto.crimemap.service.Crime.prototype.setLongitude = function(value) {
+proto.crimemap.service.Crime.prototype.setLongitude = function (value) {
   return jspb.Message.setProto3FloatField(this, 2, value);
 };
 
@@ -555,7 +555,7 @@ proto.crimemap.service.Crime.prototype.setLongitude = function(value) {
  * optional double latitude = 3;
  * @return {number}
  */
-proto.crimemap.service.Crime.prototype.getLatitude = function() {
+proto.crimemap.service.Crime.prototype.getLatitude = function () {
   return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 3, 0.0));
 };
 
@@ -564,7 +564,7 @@ proto.crimemap.service.Crime.prototype.getLatitude = function() {
  * @param {number} value
  * @return {!proto.crimemap.service.Crime} returns this
  */
-proto.crimemap.service.Crime.prototype.setLatitude = function(value) {
+proto.crimemap.service.Crime.prototype.setLatitude = function (value) {
   return jspb.Message.setProto3FloatField(this, 3, value);
 };
 
@@ -573,7 +573,7 @@ proto.crimemap.service.Crime.prototype.setLatitude = function(value) {
  * optional string description = 4;
  * @return {string}
  */
-proto.crimemap.service.Crime.prototype.getDescription = function() {
+proto.crimemap.service.Crime.prototype.getDescription = function () {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
@@ -582,7 +582,7 @@ proto.crimemap.service.Crime.prototype.getDescription = function() {
  * @param {string} value
  * @return {!proto.crimemap.service.Crime} returns this
  */
-proto.crimemap.service.Crime.prototype.setDescription = function(value) {
+proto.crimemap.service.Crime.prototype.setDescription = function (value) {
   return jspb.Message.setProto3StringField(this, 4, value);
 };
 
@@ -598,43 +598,43 @@ proto.crimemap.service.GetCrimesResponse.repeatedFields_ = [1];
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.crimemap.service.GetCrimesResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.crimemap.service.GetCrimesResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.crimemap.service.GetCrimesResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.crimemap.service.GetCrimesResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    crimesList: jspb.Message.toObjectList(msg.getCrimesList(),
-    proto.crimemap.service.Crime.toObject, includeInstance)
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.crimemap.service.GetCrimesResponse.prototype.toObject = function (opt_includeInstance) {
+    return proto.crimemap.service.GetCrimesResponse.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
+
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.crimemap.service.GetCrimesResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.crimemap.service.GetCrimesResponse.toObject = function (includeInstance, msg) {
+    var f, obj = {
+      crimesList: jspb.Message.toObjectList(msg.getCrimesList(),
+        proto.crimemap.service.Crime.toObject, includeInstance)
+    };
+
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
 }
 
 
@@ -643,7 +643,7 @@ proto.crimemap.service.GetCrimesResponse.toObject = function(includeInstance, ms
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.crimemap.service.GetCrimesResponse}
  */
-proto.crimemap.service.GetCrimesResponse.deserializeBinary = function(bytes) {
+proto.crimemap.service.GetCrimesResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
   var msg = new proto.crimemap.service.GetCrimesResponse;
   return proto.crimemap.service.GetCrimesResponse.deserializeBinaryFromReader(msg, reader);
@@ -657,21 +657,21 @@ proto.crimemap.service.GetCrimesResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.crimemap.service.GetCrimesResponse}
  */
-proto.crimemap.service.GetCrimesResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.crimemap.service.GetCrimesResponse.deserializeBinaryFromReader = function (msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new proto.crimemap.service.Crime;
-      reader.readMessage(value,proto.crimemap.service.Crime.deserializeBinaryFromReader);
-      msg.addCrimes(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new proto.crimemap.service.Crime;
+        reader.readMessage(value, proto.crimemap.service.Crime.deserializeBinaryFromReader);
+        msg.addCrimes(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
@@ -682,7 +682,7 @@ proto.crimemap.service.GetCrimesResponse.deserializeBinaryFromReader = function(
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.crimemap.service.GetCrimesResponse.prototype.serializeBinary = function() {
+proto.crimemap.service.GetCrimesResponse.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.crimemap.service.GetCrimesResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
@@ -696,7 +696,7 @@ proto.crimemap.service.GetCrimesResponse.prototype.serializeBinary = function() 
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.crimemap.service.GetCrimesResponse.serializeBinaryToWriter = function(message, writer) {
+proto.crimemap.service.GetCrimesResponse.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getCrimesList();
   if (f.length > 0) {
@@ -713,7 +713,7 @@ proto.crimemap.service.GetCrimesResponse.serializeBinaryToWriter = function(mess
  * repeated Crime crimes = 1;
  * @return {!Array<!proto.crimemap.service.Crime>}
  */
-proto.crimemap.service.GetCrimesResponse.prototype.getCrimesList = function() {
+proto.crimemap.service.GetCrimesResponse.prototype.getCrimesList = function () {
   return /** @type{!Array<!proto.crimemap.service.Crime>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.crimemap.service.Crime, 1));
 };
@@ -723,7 +723,7 @@ proto.crimemap.service.GetCrimesResponse.prototype.getCrimesList = function() {
  * @param {!Array<!proto.crimemap.service.Crime>} value
  * @return {!proto.crimemap.service.GetCrimesResponse} returns this
 */
-proto.crimemap.service.GetCrimesResponse.prototype.setCrimesList = function(value) {
+proto.crimemap.service.GetCrimesResponse.prototype.setCrimesList = function (value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
@@ -733,7 +733,7 @@ proto.crimemap.service.GetCrimesResponse.prototype.setCrimesList = function(valu
  * @param {number=} opt_index
  * @return {!proto.crimemap.service.Crime}
  */
-proto.crimemap.service.GetCrimesResponse.prototype.addCrimes = function(opt_value, opt_index) {
+proto.crimemap.service.GetCrimesResponse.prototype.addCrimes = function (opt_value, opt_index) {
   return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.crimemap.service.Crime, opt_index);
 };
 
@@ -742,7 +742,7 @@ proto.crimemap.service.GetCrimesResponse.prototype.addCrimes = function(opt_valu
  * Clears the list making it empty but non-null.
  * @return {!proto.crimemap.service.GetCrimesResponse} returns this
  */
-proto.crimemap.service.GetCrimesResponse.prototype.clearCrimesList = function() {
+proto.crimemap.service.GetCrimesResponse.prototype.clearCrimesList = function () {
   return this.setCrimesList([]);
 };
 

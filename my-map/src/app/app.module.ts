@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { FormsModule } from '@angular/forms';
-import { GrpcService } from './grpc.service';
+import { CrimeService } from './crime.service';
 
 
 
@@ -16,7 +16,7 @@ import { AppComponent } from './app.component';
       apiKey: 'AIzaSyBMyIUzztDz_jKItOcYChVYOxAdbm7rIFI'
     })
   ],
-  providers: [GrpcService],
+  providers: [CrimeService],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })

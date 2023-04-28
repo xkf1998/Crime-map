@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { GrpcService } from './grpc.service';
+import { CrimeService } from './crime.service';
+import { GetCrimesRequest } from './crime_generated/crime_pb';
+
 
 
 @Component({
@@ -41,23 +44,27 @@ export class AppComponent {
 
 
 
-  constructor(private mapsAPILoader: MapsAPILoader, private grpcService: GrpcService) {
+  constructor(private mapsAPILoader: MapsAPILoader, private grpcService: GrpcService, private crimeService: CrimeService) {
     this.rectangles = new Array(this.gridRows);
     for (let i = 0; i < this.gridRows; i++) {
       this.rectangles[i] = new Array(this.gridCols).fill(null);
     }
 
   }
-  responseMessage: string;
-  sendGrpcRequest(): void {
-    this.grpcService.sayHello('John Doe')
-      .then(response => {
-        this.responseMessage = response.getMessage();
-        console.log(this.responseMessage)
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+
+  fetchCrimeData(time_min: number, time_max: number, long_min: number, long_max: number, lat_min: number, lat_max: number) {
+    const request = new GetCrimesRequest();
+    request.setTimeMin(time_min);
+    request.setTimeMax(time_max);
+    request.setLongitudeMin(long_min);
+    request.setLongitudeMax(long_max);
+    request.setLatitudeMin(lat_min);
+    request.setLatitudeMax(lat_max);
+    this.crimeService.getCrimes(request).subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.error('Error:', error);
+    });
   }
 
   mapCrimeToGridCell(crimeLat: number, crimeLng: number): { row: number; col: number } {
