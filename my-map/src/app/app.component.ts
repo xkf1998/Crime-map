@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, AgmMarker } from '@agm/core';
 import { GrpcService } from './grpc.service';
 import { CrimeService } from './crime.service';
 import { GetCrimesRequest } from './crime_generated/crime_pb';
-
-
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -22,18 +21,17 @@ export class AppComponent {
   rectangles = [];
   map: any;
 
+  start_date: string;
+  end_date: string;
+  startTimestamp = 0;
+  endTimestamp = 2000000000;
+
   topLatBound: number;
   botLatBound: number;
   leftLongBound: number;
   rightLongBound: number;
 
-  crimes = [
-    { lat: 51.678418, lng: 7.809007, crimeNumber: 5 },
-    { lat: 51.679418, lng: 7.810007, crimeNumber: 10 },
-    { lat: 51.680418, lng: 7.811007, crimeNumber: 3 },
-    { lat: 51.681418, lng: 7.812007, crimeNumber: 8 },
-    // Add more crime data here
-  ];
+  crimes: any;
 
   gridRows = 50;
   gridCols = 100;
@@ -42,6 +40,8 @@ export class AppComponent {
   cities = ['New York', 'Chicago', 'Austin', 'Los Angeles', 'San Francisco', 'Seattle'];
   selectedCity: string = '';
 
+  public isHeatMapEnabled = false;
+
 
 
   constructor(private mapsAPILoader: MapsAPILoader, private grpcService: GrpcService, private crimeService: CrimeService) {
@@ -49,7 +49,18 @@ export class AppComponent {
     for (let i = 0; i < this.gridRows; i++) {
       this.rectangles[i] = new Array(this.gridCols).fill(null);
     }
+    this.crimes = [
+      { lat: 51.678418, lng: 7.809007, crimeNumber: 5 },
+      { lat: 51.679418, lng: 7.810007, crimeNumber: 10 },
+      { lat: 51.680418, lng: 7.811007, crimeNumber: 3 },
+      { lat: 51.681418, lng: 7.812007, crimeNumber: 8 },
+      // require the initial data for the map, now hardcoded.
+    ];
 
+  }
+
+  toggleMapMode() {
+    this.isHeatMapEnabled = !this.isHeatMapEnabled;
   }
 
   fetchCrimeData(time_min: number, time_max: number, long_min: number, long_max: number, lat_min: number, lat_max: number) {
@@ -138,7 +149,6 @@ export class AppComponent {
 
   onMapReady(map: google.maps.Map) {
     this.map = map;
-    // this.sendGrpcRequest();
   }
 
   getRectangleBounds(row: number, col: number): google.maps.LatLngBoundsLiteral {
@@ -183,8 +193,38 @@ export class AppComponent {
     this.botLatBound = sw.lat();
     this.leftLongBound = sw.lng();
     this.rightLongBound = ne.lng();
+    this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
     this.countCrimesInGrid();
   }
+
+  onBoundsChange2(bounds: google.maps.LatLngBounds) {
+    if (!bounds) {
+      return;
+    }
+
+    const ne = bounds.getNorthEast();
+    const sw = bounds.getSouthWest();
+
+    this.topLatBound = ne.lat();
+    this.botLatBound = sw.lat();
+    this.leftLongBound = sw.lng();
+    this.rightLongBound = ne.lng();
+    this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
+    // this.createMarkers();
+  }
+
+  createMarkers() {
+    for (const crime of this.crimes) {
+      const marker = new AgmMarker(this.map);
+      marker.latitude = crime.lat;
+      marker.longitude = crime.lng;
+      marker.label = crime.crimeNumber.toString();
+      marker.markerClick.subscribe(() => {
+        console.log('Marker clicked!');
+      });
+    }
+  }
+
 
   onCityChange() {
     const tmp = this.getCityLatLng(this.selectedCity);
@@ -211,6 +251,29 @@ export class AppComponent {
         return { lat: 47.606209, lng: -122.332071 };
       default:
         return { lat: 0, lng: 0 }; // default to (0, 0) if city not found
+    }
+  }
+
+  onDateChange() {
+    if (this.start_date && this.end_date) {
+      const start = new Date(this.start_date);
+      const end = new Date(this.end_date);
+      // Convert start and end dates to Unix timestamps
+      this.startTimestamp = start.getTime() / 1000; // Divide by 1000 to get Unix timestamp in seconds
+      this.endTimestamp = end.getTime() / 1000;
+
+      if (this.startTimestamp < this.endTimestamp) {
+        console.log("valid date pair");
+        console.log(this.topLatBound, this.botLatBound); // top is bigger
+        console.log(this.leftLongBound, this.rightLongBound); // right is bigger
+        this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
+        this.countCrimesInGrid();
+      } else {
+        // Handle the case where start_date is after end_date
+        this.start_date = null;
+        this.end_date = null;
+        alert("Error: start_date cannot be after end_date");
+      }
     }
   }
 

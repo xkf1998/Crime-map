@@ -7,6 +7,13 @@ agm-map {
   height: 10vh;
 }
 
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
 .title {
     background-size: cover;
     background-repeat: no-repeat;
@@ -34,10 +41,27 @@ agm-map {
     z-index: 1;
 }
 
-.city-selector{
+.city-selector,
+.date-filter {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   z-index: 1;
+  margin: 10px;
 }
+
+button {
+  position: relative;
+  z-index: 1;
+  margin: 10px;
+}
+
+agm-marker {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  z-index: 1;
+  margin: 10px;
+}
+
