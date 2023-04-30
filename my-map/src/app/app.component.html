@@ -1,37 +1,46 @@
-<div class="header">
-  <div class="title">
-    <h1>{{ title }}</h1>
-  </div>
-  <div class="filter">
-    <div class="city-selector">
-      <p>Please select your city here:</p>
-      <select [(ngModel)]="selectedCity" (change)="onCityChange()">
-        <option *ngFor="let city of cities" [value]="city">{{city}}</option>
-      </select>
+<div class="container">
+  <div class="header">
+    <div class="title">
+      <h1>{{ title }}</h1>
     </div>
+    <div class="filter">
+      <div class="city-selector">
+        <p>Please select your city here:</p>
+        <select [(ngModel)]="selectedCity" (change)="onCityChange()">
+          <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+        </select>
+      </div>
 
-    <div class="date-filter">
-      <label for="startDate">Start Date:</label>
-      <input type="date" id="startDate" [(ngModel)]="start_date" (change)="onDateChange()">
-    </div>
+      <div class="date-filter">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" [(ngModel)]="start_date" (change)="onDateChange()" placeholder="yyyy/mm/dd">
+      </div>
 
-    <div class="date-filter">
-      <label for="endDate">End Date:</label>
-      <input type="date" id="endDate" [(ngModel)]="end_date" (change)="onDateChange()">
+      <div class="date-filter">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" [(ngModel)]="end_date" (change)="onDateChange()" placeholder="yyyy/mm/dd">
+      </div>
     </div>
-    <button (click)="toggleMapMode()">Toggle Map Mode</button>
+    <div class="buttons">
+      <button (click)="toggleMapMode()">Toggle Map Mode</button>
+      <button (click)="UpdateMap()">Update Map</button>
+    </div>
   </div>
+
+  <!-- this creates a google map on the page with the given lat/lng from -->
+  <!-- the component as the initial center of the map: -->
+  <agm-map *ngIf="isHeatMapEnabled" #map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+    (boundsChange)="onBoundsChange($event)" (mapReady)="onMapReady($event)">
+  </agm-map>
+
+  <agm-map *ngIf="!isHeatMapEnabled" #map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+    (boundsChange)="onBoundsChange2($event)" (mapReady)="onMapReady($event)">
+    <agm-marker *ngFor="let crime of crimes" [latitude]="crime.lat" [longitude]="crime.lng" class="small-marker"
+      (markerClick)="onMarkerClick(crime)">
+    </agm-marker>
+    <agm-info-window *ngIf="selectedMarker" [latitude]="selectedMarker.lat" [longitude]="selectedMarker.lng"
+      [isOpen]="infoWindowOpen" (infoWindowClose)="onInfoWindowClose()">
+      {{ selectedMarker.description }}
+    </agm-info-window>
+  </agm-map>
 </div>
-
-<!-- this creates a google map on the page with the given lat/lng from -->
-<!-- the component as the initial center of the map: -->
-<agm-map *ngIf="isHeatMapEnabled" #map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
-  (boundsChange)="onBoundsChange($event)" (mapReady)="onMapReady($event)">
-</agm-map>
-
-<agm-map *ngIf="!isHeatMapEnabled" #map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
-  (boundsChange)="onBoundsChange2($event)" (mapReady)="onMapReady($event)">
-  <agm-marker *ngFor="let crime of crimes" [latitude]="crime.lat" [longitude]="crime.lng"
-    [label]="crime.crimeNumber.toString()">
-  </agm-marker>
-</agm-map>

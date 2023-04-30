@@ -40,8 +40,10 @@ export class AppComponent {
   cities = ['New York', 'Chicago', 'Austin', 'Los Angeles', 'San Francisco', 'Seattle'];
   selectedCity: string = '';
 
-  public isHeatMapEnabled = false;
+  public isHeatMapEnabled = true;
 
+  selectedMarker: any;
+  infoWindowOpen = false;
 
 
   constructor(private mapsAPILoader: MapsAPILoader, private grpcService: GrpcService, private crimeService: CrimeService) {
@@ -50,10 +52,10 @@ export class AppComponent {
       this.rectangles[i] = new Array(this.gridCols).fill(null);
     }
     this.crimes = [
-      { lat: 51.678418, lng: 7.809007, crimeNumber: 5 },
-      { lat: 51.679418, lng: 7.810007, crimeNumber: 10 },
-      { lat: 51.680418, lng: 7.811007, crimeNumber: 3 },
-      { lat: 51.681418, lng: 7.812007, crimeNumber: 8 },
+      { lat: 51.678418, lng: 7.809007, crimeNumber: 5, description: "1" },
+      { lat: 51.679418, lng: 7.810007, crimeNumber: 10, description: "2" },
+      { lat: 51.680418, lng: 7.811007, crimeNumber: 3, description: "3" },
+      { lat: 51.681418, lng: 7.812007, crimeNumber: 8, description: "4" },
       // require the initial data for the map, now hardcoded.
     ];
 
@@ -72,7 +74,15 @@ export class AppComponent {
     request.setLatitudeMin(lat_min);
     request.setLatitudeMax(lat_max);
     this.crimeService.getCrimes(request).subscribe(response => {
-      console.log(response);
+      this.crimes = [];
+      for (let i = 0; i < response['array'][0].length; i++) {
+        var crime = {}
+        crime['lat'] = response['array'][0][i][2];
+        crime['lng'] = response['array'][0][i][1];
+        crime['crimeNumber'] = 1;
+        crime['description'] = response['array'][0][i][3];
+        this.crimes.push(crime);
+      }
     }, error => {
       console.error('Error:', error);
     });
@@ -172,11 +182,11 @@ export class AppComponent {
 
   getCellColor(crimeCount: number): string {
     if (crimeCount <= 3) {
-      return 'rgba(76, 175, 80, 0.5)'; // Green
+      return 'rgba(76, 175, 80, 0.7)'; // Green
     } else if (crimeCount > 3 && crimeCount <= 7) {
-      return 'rgba(255, 193, 7, 0.5)'; // Yellow
+      return 'rgba(255, 193, 7, 0.7)'; // Yellow
     } else {
-      return 'rgba(244, 67, 54, 0.5)'; // Red
+      return 'rgba(244, 67, 54, 0.7)'; // Red
     }
   }
 
@@ -193,7 +203,6 @@ export class AppComponent {
     this.botLatBound = sw.lat();
     this.leftLongBound = sw.lng();
     this.rightLongBound = ne.lng();
-    this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
     this.countCrimesInGrid();
   }
 
@@ -209,7 +218,6 @@ export class AppComponent {
     this.botLatBound = sw.lat();
     this.leftLongBound = sw.lng();
     this.rightLongBound = ne.lng();
-    this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
     // this.createMarkers();
   }
 
@@ -231,6 +239,7 @@ export class AppComponent {
     this.lat = tmp['lat'];
     this.lng = tmp['lng'];
     this.zoom = 12;
+    this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
     // call other functions or update variables based on the selected city
   }
 
@@ -263,9 +272,6 @@ export class AppComponent {
       this.endTimestamp = end.getTime() / 1000;
 
       if (this.startTimestamp < this.endTimestamp) {
-        console.log("valid date pair");
-        console.log(this.topLatBound, this.botLatBound); // top is bigger
-        console.log(this.leftLongBound, this.rightLongBound); // right is bigger
         this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
         this.countCrimesInGrid();
       } else {
@@ -275,6 +281,21 @@ export class AppComponent {
         alert("Error: start_date cannot be after end_date");
       }
     }
+  }
+
+  UpdateMap() {
+    this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
+  }
+
+  onMarkerClick(marker: any) {
+    this.selectedMarker = marker;
+    console.log(marker);
+    this.infoWindowOpen = true;
+  }
+
+  onInfoWindowClose() {
+    this.selectedMarker = null;
+    this.infoWindowOpen = false;
   }
 
 }
