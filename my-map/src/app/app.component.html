@@ -49,17 +49,18 @@
 
   <!-- this creates a google map on the page with the given lat/lng from -->
   <!-- the component as the initial center of the map: -->
-  <agm-map *ngIf="isHeatMapEnabled" #map [(latitude)]="lat" [(longitude)]="lng" [(zoom)]="zoom"
+  <!-- <agm-map *ngIf="isHeatMapEnabled" #map [(latitude)]="lat" [(longitude)]="lng" [(zoom)]="zoom"
     (boundsChange)="onBoundsChange($event)" (mapReady)="onMapReady($event)" (zoomChange)="onZoomChange($event)"
     (centerChange)="onCenterChange($event)">
-  </agm-map>
+  </agm-map> -->
 
-  <agm-map *ngIf="!isHeatMapEnabled" #map [(latitude)]="lat" [(longitude)]="lng" [(zoom)]="zoom"
-    (boundsChange)="onBoundsChange($event)" (mapReady)="onMapReady($event)" (centerChange)="onCenterChange($event)"
-    (zoomChange)="onZoomChange($event)">
-    <agm-marker *ngFor="let crime of crimes" [latitude]="crime.lat" [longitude]="crime.lng" class="small-marker"
-      (markerClick)="onMarkerClick(crime)">
-    </agm-marker>
+  <agm-map #map [(latitude)]="lat" [(longitude)]="lng" [(zoom)]="zoom" (boundsChange)="onBoundsChange($event)"
+    (mapReady)="onMapReady($event)" (centerChange)="onCenterChange($event)" (zoomChange)="onZoomChange($event)">
+    <div *ngIf="!isHeatMapEnabled">
+      <agm-marker *ngFor="let crime of crimes" [latitude]="crime.lat" [longitude]="crime.lng" class="small-marker"
+        (markerClick)="onMarkerClick(crime)">
+      </agm-marker>
+    </div>
 
   </agm-map>
 </div>

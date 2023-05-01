@@ -166,26 +166,23 @@ export class AppComponent {
     }
     );
     if (Object.keys(this.crimeSet).length <= 64) {
-      if (this.isHeatMapEnabled) {
-        this.lat = this.center_dict.lat;
-        this.lng = this.center_dict.lng;
-      }
+      // if (this.isHeatMapEnabled) {
+      //   this.lat = this.center_dict.lat;
+      //   this.lng = this.center_dict.lng;
+      // }
+      this.resetGrid();
       this.isHeatMapEnabled = false;
     }
     else {
-      if (!this.isHeatMapEnabled) {
-        this.lat = this.center_dict.lat;
-        this.lng = this.center_dict.lng;
-      }
+      // if (!this.isHeatMapEnabled) {
+      //   this.lat = this.center_dict.lat;
+      //   this.lng = this.center_dict.lng;
+      // }
       this.isHeatMapEnabled = true;
     }
-
-
-    if (this.isHeatMapEnabled) {
-      this.mapsAPILoader.load().then(() => {
-        this.createOrUpdateRectangles();
-      });
-    }
+    this.mapsAPILoader.load().then(() => {
+      this.createOrUpdateRectangles();
+    });
   }
 
   createOrUpdateRectangles() {
@@ -353,7 +350,7 @@ export class AppComponent {
     this.infoWindowOpen = false;
   }
   onCenterChange(event: any) {
-    this.center_dict = event;
+    // this.center_dict = event;
     this.countCrimesInGrid();
   }
 
