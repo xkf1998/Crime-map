@@ -349,6 +349,7 @@ export class AppComponent {
   onCenterChange(event: any) {
     this.lat = event.lat;
     this.lng = event.lng;
+    this.countCrimesInGrid();
   }
 
   onZoomChange(event: any) {
