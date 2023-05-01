@@ -62,6 +62,7 @@ input:hover {
     justify-content: center;
     display: flex;
     align-items: center;
+    flex-direction: column;
     top: 23%;
     color: black;
     text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; /* Create a white text edge using multiple shadows */
@@ -84,8 +85,8 @@ input:hover {
 
 
 .title h1 {
-    margin: 0%;
-    font-size: 4rem;
+    margin: 10px;
+    font-size: 3.5rem;
     z-index: 1;
 }
 

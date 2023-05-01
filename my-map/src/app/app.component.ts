@@ -54,6 +54,9 @@ export class AppComponent {
   color: ThemePalette = 'warn';
   mode: ProgressSpinnerMode = 'indeterminate';
 
+  totalCrimeCount = 0;
+  crimeSet = {};
+
   constructor(private mapsAPILoader: MapsAPILoader, private grpcService: GrpcService, private crimeService: CrimeService) {
     this.rectangles = new Array(this.gridRows);
     for (let i = 0; i < this.gridRows; i++) {
@@ -70,7 +73,12 @@ export class AppComponent {
   }
 
   toggleMapMode() {
-    this.isHeatMapEnabled = !this.isHeatMapEnabled;
+    if (!this.isHeatMapEnabled || Object.keys(this.crimeSet).length <= 64) {
+      this.isHeatMapEnabled = !this.isHeatMapEnabled;
+    }
+    else {
+      alert("when there are more than 64 crime spots on the screen, the scatter map would be disabled.")
+    }
   }
 
   fetchCrimeData(time_min: number, time_max: number, long_min: number, long_max: number, lat_min: number, lat_max: number) {
@@ -141,12 +149,19 @@ export class AppComponent {
 
   countCrimesInGrid() {
     this.resetGrid();
+    this.totalCrimeCount = 0;
+    this.crimeSet = {};
     this.crimes.forEach((crime) => {
       if (this.isCrimeWithinBounds(crime.lat, crime.lng)) {
         const { row, col } = this.mapCrimeToGridCell(crime.lat, crime.lng);
         this.grid[row][col] += crime.crimeNumber;
+        this.totalCrimeCount += crime.crimeNumber;
+        var key = String(crime.lat) + " " + String(crime.lng);
+        this.crimeSet[key] = 1;
       }
-    });
+    }
+
+    );
 
     this.mapsAPILoader.load().then(() => {
       this.createOrUpdateRectangles();
