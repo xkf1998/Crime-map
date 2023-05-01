@@ -58,9 +58,6 @@
     <agm-marker *ngFor="let crime of crimes" [latitude]="crime.lat" [longitude]="crime.lng" class="small-marker"
       (markerClick)="onMarkerClick(crime)">
     </agm-marker>
-    <agm-info-window *ngIf="selectedMarker" [latitude]="selectedMarker.lat" [longitude]="selectedMarker.lng"
-      [isOpen]="infoWindowOpen" (infoWindowClose)="onInfoWindowClose()">
-      {{ selectedMarker.description }}
-    </agm-info-window>
+
   </agm-map>
 </div>
