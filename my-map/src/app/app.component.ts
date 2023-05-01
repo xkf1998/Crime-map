@@ -55,6 +55,10 @@ export class AppComponent {
   totalCrimeCount = 0;
   crimeSet = {};
 
+  isMapDragging = false;
+
+  center_dict = { 'lat': this.lat, 'lng': this.lng };
+
   constructor(private mapsAPILoader: MapsAPILoader, private grpcService: GrpcService, private crimeService: CrimeService) {
     this.rectangles = new Array(this.gridRows);
     for (let i = 0; i < this.gridRows; i++) {
@@ -70,15 +74,17 @@ export class AppComponent {
 
   }
 
-  toggleMapMode() {
-    if (!this.isHeatMapEnabled || Object.keys(this.crimeSet).length <= 64) {
-      if (!this.isHeatMapEnabled) this.countCrimesInGrid();
-      this.isHeatMapEnabled = !this.isHeatMapEnabled;
-    }
-    else {
-      alert("when there are more than 64 crime spots on the screen, the scatter map would be disabled.")
-    }
-  }
+  // toggleMapMode() {
+  //   if (!this.isHeatMapEnabled || Object.keys(this.crimeSet).length <= 64) {
+  //     if (!this.isHeatMapEnabled) this.countCrimesInGrid();
+  //     this.isHeatMapEnabled = !this.isHeatMapEnabled;
+  //     this.lat = this.center_dict.lat;
+  //     this.lng = this.center_dict.lng;
+  //   }
+  //   else {
+  //     alert("when there are more than 64 crime spots on the screen, the scatter map would be disabled.")
+  //   }
+  // }
 
   fetchCrimeData(time_min: number, time_max: number, long_min: number, long_max: number, lat_min: number, lat_max: number) {
     this.isLoading = true;
@@ -158,12 +164,28 @@ export class AppComponent {
         this.crimeSet[key] = 1;
       }
     }
-
     );
+    if (Object.keys(this.crimeSet).length <= 64) {
+      if (this.isHeatMapEnabled) {
+        this.lat = this.center_dict.lat;
+        this.lng = this.center_dict.lng;
+      }
+      this.isHeatMapEnabled = false;
+    }
+    else {
+      if (!this.isHeatMapEnabled) {
+        this.lat = this.center_dict.lat;
+        this.lng = this.center_dict.lng;
+      }
+      this.isHeatMapEnabled = true;
+    }
 
-    this.mapsAPILoader.load().then(() => {
-      this.createOrUpdateRectangles();
-    });
+
+    if (this.isHeatMapEnabled) {
+      this.mapsAPILoader.load().then(() => {
+        this.createOrUpdateRectangles();
+      });
+    }
   }
 
   createOrUpdateRectangles() {
@@ -200,6 +222,7 @@ export class AppComponent {
 
   onMapReady(map: google.maps.Map) {
     this.map = map;
+    this.countCrimesInGrid();
   }
 
   getRectangleBounds(row: number, col: number): google.maps.LatLngBoundsLiteral {
@@ -250,23 +273,6 @@ export class AppComponent {
     this.leftLongBound = sw.lng();
     this.rightLongBound = ne.lng();
     this.countCrimesInGrid();
-  }
-
-  onBoundsChange2(bounds: google.maps.LatLngBounds) {
-    if (!bounds) {
-      return;
-    }
-
-    const ne = bounds.getNorthEast();
-    const sw = bounds.getSouthWest();
-
-    // console.log(this.lat, this.lng, this.zoom);
-
-    this.topLatBound = ne.lat();
-    this.botLatBound = sw.lat();
-    this.leftLongBound = sw.lng();
-    this.rightLongBound = ne.lng();
-    // this.createMarkers();
   }
 
   createMarkers() {
@@ -347,12 +353,13 @@ export class AppComponent {
     this.infoWindowOpen = false;
   }
   onCenterChange(event: any) {
-    this.lat = event.lat;
-    this.lng = event.lng;
+    this.center_dict = event;
     this.countCrimesInGrid();
   }
 
   onZoomChange(event: any) {
     this.zoom = event;
+    this.countCrimesInGrid();
   }
+  s
 }
