@@ -171,6 +171,7 @@ agm-marker {
   background-color: white; /* Set the background color as desired */
   z-index: 10;
   opacity: 0.9;
+  overflow: auto; /* Enable scrolling */
 
   /* Add other styling properties as needed */
 }

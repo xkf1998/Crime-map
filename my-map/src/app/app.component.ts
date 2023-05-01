@@ -18,8 +18,6 @@ export class AppComponent {
   title = 'Crime Heat Map';
   lat = 51.678418;
   lng = 7.809007;
-  /*  lat = 40.712776;
-  lng = -74.005974;*/
   zoom = 12;
   rectangles = [];
   map: any;
@@ -74,6 +72,7 @@ export class AppComponent {
 
   toggleMapMode() {
     if (!this.isHeatMapEnabled || Object.keys(this.crimeSet).length <= 64) {
+      if (!this.isHeatMapEnabled) this.countCrimesInGrid();
       this.isHeatMapEnabled = !this.isHeatMapEnabled;
     }
     else {
@@ -118,7 +117,6 @@ export class AppComponent {
     }, error => {
       console.error('Error:', error);
     }, () => {
-      // 在请求完成时，将 isLoading 设置为 false
       this.isLoading = false;
     }
     );
@@ -245,6 +243,8 @@ export class AppComponent {
     const ne = bounds.getNorthEast();
     const sw = bounds.getSouthWest();
 
+    // console.log(this.lat, this.lng, this.zoom);
+
     this.topLatBound = ne.lat();
     this.botLatBound = sw.lat();
     this.leftLongBound = sw.lng();
@@ -259,6 +259,8 @@ export class AppComponent {
 
     const ne = bounds.getNorthEast();
     const sw = bounds.getSouthWest();
+
+    // console.log(this.lat, this.lng, this.zoom);
 
     this.topLatBound = ne.lat();
     this.botLatBound = sw.lat();
@@ -343,5 +345,13 @@ export class AppComponent {
   onCloseClick() {
     this.selectedMarker = null;
     this.infoWindowOpen = false;
+  }
+  onCenterChange(event: any) {
+    this.lat = event.lat;
+    this.lng = event.lng;
+  }
+
+  onZoomChange(event: any) {
+    this.zoom = event;
   }
 }
