@@ -17,7 +17,16 @@ agm-map {
 }
 
 .title,
-.filter,
+.filter{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute; /* Position the elements absolutely within the header */
+  width: 100%; /* Make the elements occupy the full width of the header */
+  bottom: 50%; /* Position the elements vertically centered */
+  transform: translateY(-50%);
+}
+
 .buttons {
   display: flex;
   align-items: center;
@@ -54,7 +63,9 @@ input:hover {
     display: flex;
     align-items: center;
     top: 23%;
-}
+    color: black;
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; /* Create a white text edge using multiple shadows */
+  }
 
 .header:before {
   content: '';
@@ -97,6 +108,8 @@ input:hover {
   border-radius:5px;
   font-size: 1rem;
   width:100%;
+  color: black;
+  text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; 
 }
 
 input,
@@ -141,4 +154,42 @@ agm-marker {
 .small-marker {
   width: 20px;
   height: 20px;
+}
+
+.my_spinner {
+  z-index: 10;
+  margin: 0px 20px;
+}
+
+.infoWindow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 25%; /* Adjust the width as needed */
+  background-color: white; /* Set the background color as desired */
+  z-index: 10;
+  opacity: 0.9;
+
+  /* Add other styling properties as needed */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 20px;
+  z-index: 10;
+}
+
+mat-card{
+  margin: 10px;
+}
+
+.placeholder
+{
+  height: 10%;
 }

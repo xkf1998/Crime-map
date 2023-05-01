@@ -3,7 +3,10 @@ import { MapsAPILoader, AgmMarker } from '@agm/core';
 import { GrpcService } from './grpc.service';
 import { CrimeService } from './crime.service';
 import { GetCrimesRequest } from './crime_generated/crime_pb';
+import { ThemePalette } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+
 
 @Component({
   selector: 'app-root',
@@ -32,6 +35,8 @@ export class AppComponent {
   rightLongBound: number;
 
   crimes: any;
+  crimes_dict: any;
+  crimes_display: any;
 
   gridRows = 50;
   gridCols = 100;
@@ -44,7 +49,10 @@ export class AppComponent {
 
   selectedMarker: any;
   infoWindowOpen = false;
+  isLoading: boolean = false;
 
+  color: ThemePalette = 'warn';
+  mode: ProgressSpinnerMode = 'indeterminate';
 
   constructor(private mapsAPILoader: MapsAPILoader, private grpcService: GrpcService, private crimeService: CrimeService) {
     this.rectangles = new Array(this.gridRows);
@@ -66,6 +74,7 @@ export class AppComponent {
   }
 
   fetchCrimeData(time_min: number, time_max: number, long_min: number, long_max: number, lat_min: number, lat_max: number) {
+    this.isLoading = true;
     const request = new GetCrimesRequest();
     request.setTimeMin(time_min);
     request.setTimeMax(time_max);
@@ -75,17 +84,36 @@ export class AppComponent {
     request.setLatitudeMax(lat_max);
     this.crimeService.getCrimes(request).subscribe(response => {
       this.crimes = [];
+      this.crimes_dict = {};
       for (let i = 0; i < response['array'][0].length; i++) {
         var crime = {}
         crime['lat'] = response['array'][0][i][2];
         crime['lng'] = response['array'][0][i][1];
         crime['crimeNumber'] = 1;
         crime['description'] = response['array'][0][i][3];
+        var timestamp = response['array'][0][i][0];
+        const date = new Date(timestamp * 1000);
+        crime['date'] = date.toISOString();
         this.crimes.push(crime);
+
+        var key = String(crime['lat']) + " " + String(crime['lng'])
+        if (key in this.crimes_dict) {
+          this.crimes_dict[key].push(crime);
+        }
+        else {
+          var tmp = [];
+          tmp.push(crime);
+          this.crimes_dict[key] = tmp;
+        }
       }
+      this.countCrimesInGrid();
     }, error => {
       console.error('Error:', error);
-    });
+    }, () => {
+      // 在请求完成时，将 isLoading 设置为 false
+      this.isLoading = false;
+    }
+    );
   }
 
   mapCrimeToGridCell(crimeLat: number, crimeLng: number): { row: number; col: number } {
@@ -180,14 +208,17 @@ export class AppComponent {
     };
   }
 
+  crimeCountToColor(m: number, M: number, k: number, crimeCount: number): string {
+    return Math.floor(M - (M - m) * Math.exp(- k * crimeCount)).toString();
+  }
+
   getCellColor(crimeCount: number): string {
-    if (crimeCount <= 3) {
-      return 'rgba(76, 175, 80, 0.7)'; // Green
-    } else if (crimeCount > 3 && crimeCount <= 7) {
-      return 'rgba(255, 193, 7, 0.7)'; // Yellow
-    } else {
-      return 'rgba(244, 67, 54, 0.7)'; // Red
-    }
+    let k = 0.04;
+    let r = this.crimeCountToColor(255, 255, k, crimeCount);
+    let g = this.crimeCountToColor(255, 0, k, crimeCount);
+    let b = this.crimeCountToColor(0, 0, k, crimeCount);
+    let a = (0.7 - 0.7 * Math.exp(- 0.4 * crimeCount)).toString();
+    return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
   }
 
 
@@ -239,7 +270,7 @@ export class AppComponent {
     this.lat = tmp['lat'];
     this.lng = tmp['lng'];
     this.zoom = 12;
-    this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
+    // this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
     // call other functions or update variables based on the selected city
   }
 
@@ -272,8 +303,8 @@ export class AppComponent {
       this.endTimestamp = end.getTime() / 1000;
 
       if (this.startTimestamp < this.endTimestamp) {
-        this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
-        this.countCrimesInGrid();
+        // this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
+        // this.countCrimesInGrid();
       } else {
         // Handle the case where start_date is after end_date
         this.start_date = null;
@@ -285,17 +316,17 @@ export class AppComponent {
 
   UpdateMap() {
     this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
+    this.countCrimesInGrid();
   }
 
   onMarkerClick(marker: any) {
-    this.selectedMarker = marker;
-    console.log(marker);
+    var key = String(marker['lat']) + " " + String(marker['lng'])
+    this.crimes_display = this.crimes_dict[key];
+    console.log(this.crimes_display);
     this.infoWindowOpen = true;
   }
-
-  onInfoWindowClose() {
+  onCloseClick() {
     this.selectedMarker = null;
     this.infoWindowOpen = false;
   }
-
 }

@@ -7,6 +7,12 @@ import { CrimeService } from './crime.service';
 
 
 import { AppComponent } from './app.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
+
+
 
 @NgModule({
   imports: [
@@ -14,10 +20,13 @@ import { AppComponent } from './app.component';
     FormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBMyIUzztDz_jKItOcYChVYOxAdbm7rIFI'
-    })
+    }),
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
   ],
   providers: [CrimeService],
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoadingSpinnerComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -25,6 +25,26 @@
       <button (click)="toggleMapMode()">Toggle Map Mode</button>
       <button (click)="UpdateMap()">Update Map</button>
     </div>
+    <mat-progress-spinner *ngIf="isLoading" class="my_spinner" [color]="color" [mode]="mode" [diameter]="40">
+    </mat-progress-spinner>
+  </div>
+
+  <div class="infoWindow" *ngIf="infoWindowOpen">
+    <div class="close-button" (click)="onCloseClick()">x</div>
+    <div class="placeholder">
+      <h1>Info Board</h1>
+    </div>
+    <mat-card *ngFor="let display of crimes_display">
+      <mat-card-header>
+        <mat-card-title>Crime Specific Description
+        </mat-card-title>
+        <mat-card-subtitle>latitude: {{display['lat']}}, longitude: {{display['lng']}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>This issue happened at {{display['date']}}. The specific
+          description is: {{display['description']}}</p>
+      </mat-card-content>
+    </mat-card>
   </div>
 
   <!-- this creates a google map on the page with the given lat/lng from -->
