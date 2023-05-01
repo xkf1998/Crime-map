@@ -19,6 +19,7 @@ export class AppComponent {
   lat = 51.678418;
   lng = 7.809007;
   zoom = 12;
+  minZoom = 12;
   rectangles = [];
   map: any;
 
@@ -45,19 +46,16 @@ export class AppComponent {
 
   public isHeatMapEnabled = true;
 
-  selectedMarker: any;
   infoWindowOpen = false;
   isLoading: boolean = false;
+  disableZoom: boolean = true;
 
   color: ThemePalette = 'warn';
   mode: ProgressSpinnerMode = 'indeterminate';
 
   totalCrimeCount = 0;
   crimeSet = {};
-
-  isMapDragging = false;
-
-  center_dict = { 'lat': this.lat, 'lng': this.lng };
+  center = { 'lat': this.lat, 'lng': this.lng };
 
   constructor(private mapsAPILoader: MapsAPILoader, private grpcService: GrpcService, private crimeService: CrimeService) {
     this.rectangles = new Array(this.gridRows);
@@ -74,17 +72,21 @@ export class AppComponent {
 
   }
 
-  // toggleMapMode() {
-  //   if (!this.isHeatMapEnabled || Object.keys(this.crimeSet).length <= 64) {
-  //     if (!this.isHeatMapEnabled) this.countCrimesInGrid();
-  //     this.isHeatMapEnabled = !this.isHeatMapEnabled;
-  //     this.lat = this.center_dict.lat;
-  //     this.lng = this.center_dict.lng;
-  //   }
-  //   else {
-  //     alert("when there are more than 64 crime spots on the screen, the scatter map would be disabled.")
-  //   }
-  // }
+  toggleMapMode() {
+    if (!this.isHeatMapEnabled || Object.keys(this.crimeSet).length <= 64) {
+      if (this.isHeatMapEnabled) {
+        this.countCrimesInGrid();
+        this.minZoom = this.zoom;
+      }
+      console.log(this.minZoom);
+      this.lat = this.center.lat;
+      this.lng = this.center.lng;
+      this.isHeatMapEnabled = !this.isHeatMapEnabled;
+    }
+    else {
+      alert("when there are more than 64 crime spots on the screen, the scatter map would be disabled.")
+    }
+  }
 
   fetchCrimeData(time_min: number, time_max: number, long_min: number, long_max: number, lat_min: number, lat_max: number) {
     this.isLoading = true;
@@ -164,22 +166,9 @@ export class AppComponent {
         this.crimeSet[key] = 1;
       }
     }
+
     );
-    if (Object.keys(this.crimeSet).length <= 64) {
-      // if (this.isHeatMapEnabled) {
-      //   this.lat = this.center_dict.lat;
-      //   this.lng = this.center_dict.lng;
-      // }
-      this.resetGrid();
-      this.isHeatMapEnabled = false;
-    }
-    else {
-      // if (!this.isHeatMapEnabled) {
-      //   this.lat = this.center_dict.lat;
-      //   this.lng = this.center_dict.lng;
-      // }
-      this.isHeatMapEnabled = true;
-    }
+    if (!this.isHeatMapEnabled) this.resetGrid();
     this.mapsAPILoader.load().then(() => {
       this.createOrUpdateRectangles();
     });
@@ -219,7 +208,6 @@ export class AppComponent {
 
   onMapReady(map: google.maps.Map) {
     this.map = map;
-    this.countCrimesInGrid();
   }
 
   getRectangleBounds(row: number, col: number): google.maps.LatLngBoundsLiteral {
@@ -346,17 +334,13 @@ export class AppComponent {
     this.infoWindowOpen = true;
   }
   onCloseClick() {
-    this.selectedMarker = null;
     this.infoWindowOpen = false;
   }
   onCenterChange(event: any) {
-    // this.center_dict = event;
-    this.countCrimesInGrid();
+    this.center = event;
   }
 
   onZoomChange(event: any) {
     this.zoom = event;
-    this.countCrimesInGrid();
   }
-  s
 }
