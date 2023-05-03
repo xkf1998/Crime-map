@@ -1,0 +1,17 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "real_enviroment_go",
+    srcs = ["real_enviroment.go"],
+    importpath = "github.com/jialunzhai/crimemap/analytics/online/server/real_enviroment.go",
+    visibility = ["//visibility:public"],
+    deps = ["//analytics/online/server/interfaces"],
+)
+
+go_library(
+    name = "real_enviroment",
+    srcs = ["real_enviroment.go"],
+    importpath = "github.com/jialunzhai/crimemap/analytics/online/server/real_enviroment",
+    visibility = ["//visibility:public"],
+    deps = ["//analytics/online/server/interfaces"],
+)

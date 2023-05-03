@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package crimemap.service;
+
+option go_package = "crimemap_service";
+
+message GetCrimesRequest {
+  int64 time_min = 1;
+  int64 time_max = 2;
+  double longitude_min = 3;
+  double longitude_max = 4;
+  double latitude_min = 5;
+  double latitude_max = 6;
+}
+
+message Crime {
+  int64 time = 1;
+  double longitude = 2;
+  double latitude = 3;
+  string description = 4;
+}
+
+message GetCrimesResponse { 
+  repeated Crime crimes = 1; 
+}
+
+service CrimeMap {
+  rpc GetCrimes(GetCrimesRequest) returns (GetCrimesResponse) {}
+}

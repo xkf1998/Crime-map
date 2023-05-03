@@ -1,0 +1,30 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "cmd_lib",
+    srcs = ["main.go"],
+    data = [
+        "//analytics/online/config",
+        "//analytics/online/webapp:server",
+    ],
+    importpath = "github.com/jialunzhai/crimemap/analytics/online/server/cmd",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//analytics/online/server/crimemap_service",
+        "//analytics/online/server/enviroment",
+        "//analytics/online/server/grpc_server",
+        "//analytics/online/server/grpc_web_server",
+        "//analytics/online/server/hbase_client",
+        "//analytics/online/server/http_server",
+        "//analytics/online/server/interfaces",
+        "//analytics/online/server/real_enviroment",
+        "@in_gopkg_yaml_v3//:yaml_v3",
+        "@org_golang_x_sync//errgroup",
+    ],
+)
+
+go_binary(
+    name = "cmd",
+    embed = [":cmd_lib"],
+    visibility = ["//visibility:public"],
+)

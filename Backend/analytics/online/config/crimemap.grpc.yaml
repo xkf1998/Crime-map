@@ -1,0 +1,7 @@
+database:
+  address: localhost
+  table: group4_rbda_nyu_edu:crimes
+grpc:
+  address: :8079
+grpcweb:
+  address: localhost:8080

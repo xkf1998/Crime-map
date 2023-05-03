@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "http_server",
+    srcs = ["http_server.go"],
+    importpath = "github.com/jialunzhai/crimemap/analytics/online/server/http_server",
+    visibility = ["//visibility:public"],
+    deps = ["//analytics/online/server/enviroment"],
+)

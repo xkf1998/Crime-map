@@ -1,0 +1,30 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "gohbase",
+    srcs = [
+        "admin_client.go",
+        "caches.go",
+        "client.go",
+        "prometheus.go",
+        "rpc.go",
+        "scanner.go",
+    ],
+    importmap = "github.com/jialunzhai/crimemap/vendor/github.com/tsuna/gohbase",
+    importpath = "github.com/tsuna/gohbase",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/tsuna/gohbase/compression",
+        "//vendor/github.com/tsuna/gohbase/hrpc",
+        "//vendor/github.com/tsuna/gohbase/internal/observability",
+        "//vendor/github.com/tsuna/gohbase/pb",
+        "//vendor/github.com/tsuna/gohbase/region",
+        "//vendor/github.com/tsuna/gohbase/zk",
+        "//vendor/google.golang.org/protobuf/proto",
+        "@com_github_prometheus_client_golang//prometheus",
+        "@com_github_prometheus_client_golang//prometheus/promauto",
+        "@com_github_sirupsen_logrus//:logrus",
+        "@io_opentelemetry_go_otel//codes",
+        "@org_modernc_b_v2//:b",
+    ],
+)

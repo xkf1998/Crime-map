@@ -1,0 +1,10 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "snappy",
+    srcs = ["snappy.go"],
+    importmap = "github.com/jialunzhai/crimemap/vendor/github.com/tsuna/gohbase/compression/snappy",
+    importpath = "github.com/tsuna/gohbase/compression/snappy",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_golang_snappy//:snappy"],
+)

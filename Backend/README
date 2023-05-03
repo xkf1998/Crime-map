@@ -1,0 +1,87 @@
+# Install golang
+  https://go.dev/doc/install
+
+# Install protobuf compiler on linux (no need to do this if you won't change crimemap_service.proto)
+  sudo apt install protobuf-compiler
+  sudo apt install golang-goprotobuf-dev
+
+# Install go-protobuf plugin and grpc plugin (no need to do this if you won't change crimemap_service.proto)
+  go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+  go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+# Install bazel 
+  https://bazel.build/install
+
+# Generate BUILD files (no need to do this if you haven't change golang code)
+  bazel run //:gazelle
+
+# Compile protobuf (no need to do this if you haven't change crimemap_service.proto)
+## take crimemap_service.proto for example
+### 1. change go_package to "./crimemap_service" in crimemap_service.proto
+### 2. compile grpc-proto, then your IDE will not complain about proto
+  PATH="${PATH}:${HOME}/go/bin" protoc --go_out=:. --go-grpc_out=. crimemap_service.proto
+### 3. change go_package back to "crimemap_service" in crimemap_service.proto
+### 4. you can ignore the proto
+
+# Build the whole project
+  bazel build //analytics/online/server/cmd
+
+# Build and run the whole project with configure file
+## run all components
+  bazel run //analytics/online/server/cmd ./analytics/online/config/crimemap.dev.yaml
+## run gRPC service only (include gRPC server, gRPC web server and database client)
+  bazel run //analytics/online/server/cmd ./analytics/online/config/crimemap.grpc.yaml
+
+# Add new package;
+## For more information, see https://github.com/bazelbuild/rules_nodejs/blob/stable/docs/dependencies.md
+  bazel run @yarn//:yarn -- add $PACKAGE_NAME
+
+# Clear useless modules and add required ones from dependencies
+  go mod tidy
+
+# Add an external go-dependency
+## If the source code of $MODULE_NAME has go.mod then
+### 1. add $MODULE_NAME to go.mod
+  go get $MODULE_NAME
+### 2. add $MODULE_NAME an external bazel-repository
+  bazel run //:gazelle update-repos $MODULE_NAME
+#### or update based on go.mod
+  bazel run //:gazelle -- update-repos -from_file=go.mod -to_macro=deps.bzl%go_dependencies
+### 3. update BUILD.bazel for those who depend on $MODULE_NAME
+  bazel run //:gazelle
+## else
+### 1. add $MODULE_NAME to go.mod
+  go get $MODULE_NAME
+### 2. download the source code to vendor dir, the relative path of the go-module to vendor dir should match the module name
+### 3. add the following line to repalce in go.mod,
+###    then golang will import this module from local dir
+  $MODULE_NAME => ./vendor/$MODULE_NAME
+### 4. update BUILD.bazel for those who depend on $MODULE_NAME
+  bazel run //:gazelle
+### 5. you can compile the project now, but some errors will occur which can be solved by troubleshooting section in this README
+
+# WARNING
+- DONOT RUN `go mod vendor`: YOU CAN RUN IT ONLY IF YOU ARE ADDING AN EXTERNAL MODULE WHICH DOES NOT HAVE go.mod
+
+# Troubleshooting
+## After run go mod vendor, it will add all dependencies into vendor, leading gazelle works incorrectly.
+## Those modules are typically direct dependencies. 
+## You can delect those modules in vendor if gazelle generates a BUILD.bazel refer to them in vendor dir.
+## For example, a known module has this behavior is google.golang.org/grpc, 
+## you shoud remove vendor/google.golang.org/grpc everytime after you run go vendor, 
+## and also remember to remove google.golang.org/grpc from vendor/modules.txt
+
+
+# Map host names of HBase to localhost
+## edit the localhost line in your /etc/hosts to
+127.0.0.1       localhost       nyu-dataproc-w-0.c.hpc-dataproc-19b8.internal   nyu-dataproc-w-1.c.hpc-dataproc-19b8.internal
+## check whether your machine search /etc/hosts before query for DNS
+## verify the `hosts` line in your /etc/nsswitch.conf , `files` is at the left of dns like this
+hosts:          files dns
+## check whether you map the host names of HBase correctly:
+ping nyu-dataproc-w-0.c.hpc-dataproc-19b8.internal
+ping nyu-dataproc-w-1.c.hpc-dataproc-19b8.internal
+# Set up a proxy to forword the request to Dataproc
+gcloud compute ssh nyu-dataproc-m --project hpc-dataproc-19b8 --zone us-central1-f -- -N -L 2181:localhost:2181
+gcloud compute ssh nyu-dataproc-m --project hpc-dataproc-19b8 --zone us-central1-f -- -N -L 16020:nyu-dataproc-w-0.c.hpc-dataproc-19b8.internal:16020
+gcloud compute ssh nyu-dataproc-m --project hpc-dataproc-19b8 --zone us-central1-f -- -N -L 16021:nyu-dataproc-w-1.c.hpc-dataproc-19b8.internal:16020

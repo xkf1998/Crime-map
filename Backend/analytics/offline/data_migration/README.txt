@@ -1,0 +1,1 @@
+# migrate data from Hive to HBase, the schema will be changed

@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "enviroment",
+    srcs = ["enviroment.go"],
+    importpath = "github.com/jialunzhai/crimemap/analytics/online/server/enviroment",
+    visibility = ["//visibility:public"],
+    deps = ["//analytics/online/server/interfaces"],
+)

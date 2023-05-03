@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "zk",
+    srcs = ["client.go"],
+    importmap = "github.com/jialunzhai/crimemap/vendor/github.com/tsuna/gohbase/zk",
+    importpath = "github.com/tsuna/gohbase/zk",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/tsuna/gohbase/pb",
+        "//vendor/google.golang.org/protobuf/proto",
+        "@com_github_go_zookeeper_zk//:zk",
+        "@com_github_sirupsen_logrus//:logrus",
+    ],
+)

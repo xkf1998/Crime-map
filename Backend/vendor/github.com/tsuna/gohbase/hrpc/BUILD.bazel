@@ -1,0 +1,31 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "hrpc",
+    srcs = [
+        "balancer.go",
+        "call.go",
+        "checkandput.go",
+        "create.go",
+        "delete.go",
+        "disable.go",
+        "enable.go",
+        "get.go",
+        "list.go",
+        "move.go",
+        "mutate.go",
+        "procedure.go",
+        "query.go",
+        "scan.go",
+        "snapshot.go",
+        "status.go",
+    ],
+    importmap = "github.com/jialunzhai/crimemap/vendor/github.com/tsuna/gohbase/hrpc",
+    importpath = "github.com/tsuna/gohbase/hrpc",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/tsuna/gohbase/filter",
+        "//vendor/github.com/tsuna/gohbase/pb",
+        "//vendor/google.golang.org/protobuf/proto",
+    ],
+)

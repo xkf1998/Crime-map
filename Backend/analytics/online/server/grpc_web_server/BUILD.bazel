@@ -1,0 +1,13 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "grpc_web_server",
+    srcs = ["grpc_web_server.go"],
+    importpath = "github.com/jialunzhai/crimemap/analytics/online/server/grpc_web_server",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//analytics/online/server/enviroment",
+        "@com_github_improbable_eng_grpc_web//go/grpcweb",
+        "@org_golang_google_grpc//:go_default_library",
+    ],
+)
