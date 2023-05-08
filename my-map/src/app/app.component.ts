@@ -16,8 +16,8 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 export class AppComponent {
 
   title = 'Crime Heat Map';
-  lat = 51.678418;
-  lng = 7.809007;
+  lat = 47.606209;
+  lng = -122.332071;
   zoom = 12;
   minZoom = 12;
   rectangles = [];
@@ -25,7 +25,7 @@ export class AppComponent {
 
   start_date: string;
   end_date: string;
-  startTimestamp = 0;
+  startTimestamp = 1514764800;
   endTimestamp = 2000000000;
 
   topLatBound: number;
@@ -62,13 +62,7 @@ export class AppComponent {
     for (let i = 0; i < this.gridRows; i++) {
       this.rectangles[i] = new Array(this.gridCols).fill(null);
     }
-    this.crimes = [
-      { lat: 51.678418, lng: 7.809007, crimeNumber: 5, description: "1" },
-      { lat: 51.679418, lng: 7.810007, crimeNumber: 10, description: "2" },
-      { lat: 51.680418, lng: 7.811007, crimeNumber: 3, description: "3" },
-      { lat: 51.681418, lng: 7.812007, crimeNumber: 8, description: "4" },
-      // require the initial data for the map, now hardcoded.
-    ];
+    this.fetchCrimeData(this.startTimestamp, this.endTimestamp, this.leftLongBound, this.rightLongBound, this.botLatBound, this.topLatBound);
 
   }
 
@@ -317,8 +311,20 @@ export class AppComponent {
         // Handle the case where start_date is after end_date
         this.start_date = null;
         this.end_date = null;
+        this.startTimestamp = 1514764800;
+        this.endTimestamp = 2000000000;
         alert("Error: start_date cannot be after end_date");
       }
+    }
+    else if (this.start_date) {
+      const start = new Date(this.start_date);
+      this.startTimestamp = start.getTime() / 1000; // Divide by 1000 to get Unix timestamp in seconds
+      this.endTimestamp = 2000000000;
+    }
+    else if (this.end_date) {
+      const end = new Date(this.end_date);
+      this.endTimestamp = end.getTime() / 1000;
+      this.startTimestamp = 1514764800;
     }
   }
 
